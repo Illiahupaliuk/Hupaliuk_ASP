@@ -1,0 +1,23 @@
+﻿@using Rozklad.Repos.Dto
+@model BusSheduleReadDto
+@{
+}
+
+
+  
+
+
+ <h1>Видалити маршрут?</h1>
+<hr />
+
+<p>@Model.ArrivalTime</p>
+<p>@Model.DepartureTime</p>
+
+<hr />
+
+<form asp-action="ConfirmDelete" class=" col-md-4">
+        @Html.AntiForgeryToken()
+    <input asp-for="Id" type="hidden" />
+    <button type="submit" class=" btn btn-danger">Видалити маршрут!!!</button>
+    <a href="/home/index" class="btn btn-outline-primary">Повернутися до списку або відмінити</a>
+        <</form>
