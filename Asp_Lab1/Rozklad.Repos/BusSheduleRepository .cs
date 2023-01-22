@@ -257,5 +257,42 @@ namespace Rozklad.Repos
         }
 
 
+        public async Task<IEnumerable<BusSheduleReadDto>> SearchBusSheduleAsync()
+        {
+
+
+            var shedules = new List<BusSheduleReadDto>();
+
+            foreach (var u in _ctx.BusShedules.Include(x => x.Busroute).Include(x => x.carrier).Include(x => x.status).Include(x => x.buyTicket).ToList())
+            {
+
+
+                var busDto = new BusSheduleReadDto
+                {
+                    Id = u.Id,
+                    DepartureTime = u.DepartureTime,
+
+                    Busrooute = new BusRouteReadDto { BusrouteId = u.BusrouteId, PlaceOfDeparture = u.Busroute.PlaceOfDeparture, IntermediateStops = u.Busroute.IntermediateStops, PlaceOfArrival = u.Busroute.PlaceOfArrival },
+                    Seats = u.Seats,
+                    carier = new CarrierReadDto { carrierId = u.carrierId, Name = u.carrier.Name, Transport = u.carrier.Transport },
+
+                    Cost = u.Cost,
+                    ArrivalTime = u.ArrivalTime,
+                    status = new StatusReadDto { statusId = u.statusId, StatusValue = u.status.StatusValue },
+
+
+                    ticket = new TicketReadDto { buyTicketId = u.buyTicketId, BuyerName = u.buyTicket.BuyerName, numTicket = u.buyTicket.numTicket, NomerTel = u.buyTicket.NomerTel, AllPrice = u.buyTicket.AllPrice }
+
+                };
+
+
+                shedules.Add(busDto);
+            }
+
+
+
+            return shedules;
+        }
+
     }
 }

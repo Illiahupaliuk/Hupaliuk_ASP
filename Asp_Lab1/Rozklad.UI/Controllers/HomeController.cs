@@ -144,6 +144,11 @@ namespace Rozklad.UI.Controllers
         
         }
 
+        public async Task<IActionResult> Search()
+        {
+            return View(await busRepository.SearchBusSheduleAsync());
+        }
+
         public IActionResult Privacy()
         {
             return View();

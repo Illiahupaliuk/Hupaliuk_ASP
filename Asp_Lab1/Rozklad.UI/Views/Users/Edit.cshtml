@@ -4,6 +4,10 @@
 @model UserReadDto
 
 @{
+    Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
+}
+
+@{
     var roles = ViewBag.Roles as IEnumerable<IdentityRole>;
 }
 
