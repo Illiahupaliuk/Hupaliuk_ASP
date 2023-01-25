@@ -1,55 +1,63 @@
-﻿@using Rozklad.Repos.Dto
+﻿@using Microsoft.JSInterop
+@using Rozklad.Core
+@using Rozklad.Repos.Dto
+@using Rozklad.UI.Controllers
 @model IEnumerable<BusSheduleReadDto>
+@inject IJSRuntime JS
+
 
 
 @{
     var search = "";
-
+  
 }
    
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 @{
-    Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
-
-
-   
+    Layout = "~/Views/Shared/_LayoutDashmin.cshtml"; 
 }
 
 <div class="container-fluid pt-5 px-1000">
-  <form class="d-none d-md-flex ms-4">
+  <form method="post">
         <input class="form-control border-2" type="text" placeholder="Search" name="search" id="object">
                 </form>
-    <a href="/home/index" onclick="submit()" class=" btn btn-warning">Знайти</a>
+    <a href="/home/index" type="submit" class=" btn btn-warning">Знайти</a>
 </div>
 
+
 <script>
-    function submit(){
-    var a =document.getElementById("object");
-        search = a.value;
-    alert(search);
+   $ var a;
 
-
+   $ function submit(){
+     a =document.getElementById("object");
+    search = a.value;
+    alert(search);  
     }
+
 </script>
 
+
+
 @{
+   
 }
-<div class="container-fluid pt-4 px-1000">
-    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-        <div class="col-md-10 text-center">
+<div class="container-fluid pt-8 px-1500">
+    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-2">
+        <div class="col-md-15 text-center">
             <div class="float-end">
                 <a href="/home/create" class="btn btn-outline-primary">Додати інформацію</a>
             </div>
 
             <h1>Розклад руху автобусів!</h1>
             <hr />
-
+            
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Час Відбуття</th>
                         <th>Маршрут</th>
                         <th>Кількість місць</th>
@@ -68,6 +76,7 @@
                         @if (u.Busrooute.PlaceOfDeparture == search)
                         {
                             <tr>
+                                <td> <a href="/home/comentar/@u.Id" class=" btn btn-warning">Коментарі</a></td>
                                 <td>@u.DepartureTime</td>
                                 <td>
                                     @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival
@@ -91,6 +100,7 @@
                         @if (search == "")
                         {
                             <tr>
+                                <td> <a href="/home/comentar/@u.Id" class=" btn btn-warning">Коментарі</a></td>
                                 <td>@u.DepartureTime</td>
                                 <td>
                                     @u.Busrooute.PlaceOfDeparture - @u.Busrooute.IntermediateStops - @u.Busrooute.PlaceOfArrival

@@ -23,5 +23,6 @@ namespace Rozklad.Repos.Dto
         public StatusReadDto? status { get; set; }
         public TicketReadDto? ticket { get; set; }
 
+        public string Search { get; set; }
     }
 }

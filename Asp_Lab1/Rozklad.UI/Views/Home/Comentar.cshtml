@@ -1,0 +1,97 @@
+﻿@using Rozklad.Core
+@using Rozklad.Repos
+@using Rozklad.Repos.Dto
+@using Rozklad.UI.Controllers
+@model ComentarReadDto    
+@inject RozkladContext _ctx
+
+@{
+
+
+    var comentars = new List<ComentarReadDto>();
+
+    foreach (var u in _ctx.Comentars.ToList())
+    {
+        var comDto = new ComentarReadDto
+                {
+                    comentarId = u.comentarId,
+                    date = u.date,
+                    comentar = u.comentar,
+                    sheduleId = u.sheduleId
+                };
+        comentars.Add(comDto);
+    }
+
+    Layout = "~/Views/Shared/_LayoutDashmin.cshtml";
+    ViewBag.Title = "Comentar";
+
+    Random rnd = new Random();
+    int random = rnd.Next(1, 10000);
+}
+
+
+<div class=" row">
+    <form asp-action="Comentar" class=" col-md-4">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <label  class="form-label"></label>
+            <input asp-for="comentar" class=" form-control" placeholder="Напишіть коментар"/>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Відправити коментар</button>
+        </div>
+    </form>
+</div>
+
+<div class="container-fluid pt-4 px-1000">
+    <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+        <div class="col-md-10 text-center">
+            <h1>Коментарі</h1>
+            <hr />
+            
+           
+                @foreach (var u in comentars)
+                    {
+                random = rnd.Next(1, 10000);
+                <div>
+                    <tr>
+                        <th>User-@random</th>
+
+                    </tr>
+                </div>
+                <div>
+                <tr>
+                    <th>Дата: </th>
+
+                </tr>
+                <tr>
+                    <td>@u.date </td>
+                </tr>
+            </div>
+            <div>
+            <tr>
+                    <th>Коментар: </th>
+
+            </tr>
+
+                <tr>
+                    <td>@u.comentar</td>
+                </tr>
+                </div>
+                        <hr />
+                    }
+                
+          
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

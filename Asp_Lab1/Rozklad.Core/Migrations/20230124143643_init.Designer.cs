@@ -12,7 +12,7 @@ using Rozklad.Core;
 namespace Rozklad.Core.Migrations
 {
     [DbContext(typeof(RozkladContext))]
-    [Migration("20221104205737_init")]
+    [Migration("20230124143643_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,15 +53,15 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b4788677-bceb-4b4e-9681-c5fd6a191457",
-                            ConcurrencyStamp = "cd67d0a1-8c9e-4e05-b416-c7ab01214ff0",
+                            Id = "6719ba83-5710-411f-b7d6-e37bd1293bab",
+                            ConcurrencyStamp = "b213c196-1c55-45f9-8fe1-fa16c52f81ea",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9c946f41-54b1-40c2-99a8-8bebcf5040c3",
-                            ConcurrencyStamp = "cf9d18e3-4609-44de-8f60-fe15ea3b48fb",
+                            Id = "f5d94e54-417b-45fe-9ba8-e6c2de4a1a8d",
+                            ConcurrencyStamp = "dd65d6a1-e52c-4567-aef8-bda8c4f5ea91",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -158,18 +158,18 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4d45a300-2822-461c-8998-833fff9eda30",
-                            RoleId = "b4788677-bceb-4b4e-9681-c5fd6a191457"
+                            UserId = "6d9bf27b-46b0-45b6-9ce1-fb380d4b539c",
+                            RoleId = "6719ba83-5710-411f-b7d6-e37bd1293bab"
                         },
                         new
                         {
-                            UserId = "4d45a300-2822-461c-8998-833fff9eda30",
-                            RoleId = "9c946f41-54b1-40c2-99a8-8bebcf5040c3"
+                            UserId = "6d9bf27b-46b0-45b6-9ce1-fb380d4b539c",
+                            RoleId = "f5d94e54-417b-45fe-9ba8-e6c2de4a1a8d"
                         },
                         new
                         {
-                            UserId = "74aab0ae-950b-46ba-be5d-ed5956d08510",
-                            RoleId = "9c946f41-54b1-40c2-99a8-8bebcf5040c3"
+                            UserId = "9005b1c4-365a-4f80-bb6f-484b761ed3ab",
+                            RoleId = "f5d94e54-417b-45fe-9ba8-e6c2de4a1a8d"
                         });
                 });
 
@@ -257,6 +257,9 @@ namespace Rozklad.Core.Migrations
                     b.Property<int>("carrierId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("comentarId")
+                        .HasColumnType("int");
+
                     b.Property<int>("statusId")
                         .HasColumnType("int");
 
@@ -267,6 +270,8 @@ namespace Rozklad.Core.Migrations
                     b.HasIndex("buyTicketId");
 
                     b.HasIndex("carrierId");
+
+                    b.HasIndex("comentarId");
 
                     b.HasIndex("statusId");
 
@@ -393,6 +398,29 @@ namespace Rozklad.Core.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Rozklad.Core.Comentar", b =>
+                {
+                    b.Property<int>("comentarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("comentarId"), 1L, 1);
+
+                    b.Property<string>("comentar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("sheduleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("comentarId");
+
+                    b.ToTable("Comentars");
+                });
+
             modelBuilder.Entity("Rozklad.Core.MapsRoute", b =>
                 {
                     b.Property<int?>("mapsRouteId")
@@ -517,33 +545,33 @@ namespace Rozklad.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4d45a300-2822-461c-8998-833fff9eda30",
+                            Id = "6d9bf27b-46b0-45b6-9ce1-fb380d4b539c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c2a68970-3e2b-4440-a0aa-16cc0ba49bad",
+                            ConcurrencyStamp = "591f327c-9d61-4ded-a8e0-f2623336d62f",
                             Email = "admin@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ROZKLAD.COM",
                             NormalizedUserName = "ADMIN@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFYtXi3B4oZppcHeMUEr8IfkxyBHFr/yhfveOXNERU+XQqrYjhPhu+/VV60llQGFkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPbwkxbLs9HjMmJOSMs0W/7OgTGh7qZ06PawKpqnZvmYP66YTrvMyY1+0p+IO9UOiw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7560ed76-5f22-48e1-a0e0-63e0c1b1317c",
+                            SecurityStamp = "e24c98e2-43f7-49ee-b8c8-26616c13f90f",
                             TwoFactorEnabled = false,
                             UserName = "admin@rozklad.com"
                         },
                         new
                         {
-                            Id = "74aab0ae-950b-46ba-be5d-ed5956d08510",
+                            Id = "9005b1c4-365a-4f80-bb6f-484b761ed3ab",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c7e5037e-b11b-4e79-89fe-d98f58716d12",
+                            ConcurrencyStamp = "10c488a9-139f-43d9-946b-6d2b5d156e33",
                             Email = "user@rozklad.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@ROZKLAD.COM",
                             NormalizedUserName = "USER@ROZKLAD.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN43IU/5gBaqj9vAXuBFOs+7tgNwTP8BXpfXp6PDYc24yBAc0TUWdimxl/e+x4Yymg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHD7YaRdbQoyCt7STWztMdtxByHEUrSAOBal5SDFqcsgrpoNiazICzRpndHr5GjFPw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a6f3607a-7f17-4d37-8e5f-991d96df3e20",
+                            SecurityStamp = "dc663cc5-c95f-4ce4-a68c-cc4fbecedf4f",
                             TwoFactorEnabled = false,
                             UserName = "user@rozklad.com"
                         });
@@ -620,6 +648,10 @@ namespace Rozklad.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Rozklad.Core.Comentar", null)
+                        .WithMany("BusShedules")
+                        .HasForeignKey("comentarId");
+
                     b.HasOne("Rozklad.Core.Status", "status")
                         .WithMany("BusShedules")
                         .HasForeignKey("statusId")
@@ -662,6 +694,11 @@ namespace Rozklad.Core.Migrations
                 });
 
             modelBuilder.Entity("Rozklad.Core.Carrier", b =>
+                {
+                    b.Navigation("BusShedules");
+                });
+
+            modelBuilder.Entity("Rozklad.Core.Comentar", b =>
                 {
                     b.Navigation("BusShedules");
                 });

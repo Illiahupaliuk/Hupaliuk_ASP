@@ -26,7 +26,41 @@ namespace Rozklad.Repos
            
         }
 
-  
+        public async Task<Comentar> ComentarBusSheduleAsync(DateTime date, string comentar, int id)
+        {         
+        var newComentar = new Comentar
+            {
+                date = DateTime.Now,
+                comentar = comentar,
+                sheduleId = id
+               
+            };
+
+            _ctx.Comentars.Add(newComentar);
+            await _ctx.SaveChangesAsync();
+          return await _ctx.Comentars.FirstAsync(x => x.comentar == comentar);
+
+        }
+
+        public async Task<IEnumerable<ComentarReadDto>> GetComentarBusSheduleAsync()
+        {
+
+            var comentars = new List<ComentarReadDto>();
+
+            foreach (var u in _ctx.Comentars.ToList())
+            {
+                var comDto = new ComentarReadDto
+                {
+comentarId = u.comentarId,
+date = u.date,
+comentar = u.comentar,
+sheduleId = u.sheduleId
+                };
+                comentars.Add(comDto);
+            }
+            return comentars;
+
+        }
 
         public async Task<BusShedule> CreateBusSheduleAsync(DateTime Departuretime , BusRoute? busRoute,MapsRoute? mapsRoute, int? seats, Carrier? carrier, Status? status, DateTime Arrivaltime, float cost)
         {

@@ -21,7 +21,8 @@ namespace Rozklad.Core
         public DbSet<BuyTicket>? BuyTickets { get; set; }
         public DbSet<Card>? Cards { get; set; }
         public DbSet<MapsRoute>? MapsRoutes { get; set; }
-       
+        public DbSet<Comentar>? Comentars { get; set; }
+
 
     }
 }

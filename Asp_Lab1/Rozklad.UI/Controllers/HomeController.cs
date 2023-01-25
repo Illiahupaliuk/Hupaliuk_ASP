@@ -19,6 +19,31 @@ namespace Rozklad.UI.Controllers
             _ctx = ctx;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Comentar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Comentar(ComentarReadDto model, int id)
+        {
+
+            if (id != 0)
+            {
+            }
+
+                Comentar comentar = await busRepository.ComentarBusSheduleAsync(model.date, model.comentar, id);
+            return RedirectToAction("comentar", "Home", new { id = comentar.sheduleId });
+          
+
+        }
+
+        public async Task<IActionResult> Comentar(string id)
+        {
+            return View(await busRepository.GetComentarBusSheduleAsync());
+        }
+
         public async Task<IActionResult> Index()
         {
             return View(await busRepository.GetBusSheduleAsync());
@@ -144,9 +169,17 @@ namespace Rozklad.UI.Controllers
         
         }
 
+        [HttpGet]
         public async Task<IActionResult> Search()
         {
             return View(await busRepository.SearchBusSheduleAsync());
+        }
+
+        [HttpPost]
+        public IActionResult Search(string search)
+        {
+            string authData = $"Search: {search}";
+            return Content(authData);
         }
 
         public IActionResult Privacy()
